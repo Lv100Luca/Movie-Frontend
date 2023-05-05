@@ -7,9 +7,11 @@ import type Movie from "@/model/Movie";
 const listOfMovies = ref<Movie[]>([]);
 const listOfMoviesByName = ref<Movie[]>([]);
 const movieNamePost = ref<string>("");
-const movieNameGet = ref<string>("");
+const movieName = ref<string>("");
 const movieId = ref<number>();
 const movieById = ref<Movie>();
+
+const movieQuarry = ref<string>("");
 
 const movieDelete = ref();
 
@@ -29,6 +31,20 @@ function addMovie(name: string) {
     // getMovies();
 }
 
+function isNum(string: string) {
+    return /\d/.test(string);
+}
+
+function getMovie(quarry: string) {
+    listOfMovies.value = [];
+    if(isNum(quarry)) {
+        MovieApi.ApiGetById(+quarry).then(movie => listOfMovies.value.push(movie))
+    } else {
+        MovieApi.ApiGetByName(quarry).then(movies => listOfMovies.value = movies)
+    }
+}
+
+// todo -> merge getbyName and getByID ino one field
 function getMovieByName(name: string) {
     console.log("getByName: " + name)
     MovieApi.ApiGetByName(name).then(movies => listOfMoviesByName.value = movies);
@@ -71,10 +87,22 @@ function deleteMovieByName(id: number) {
                 <!--                    code-->
                 <!--                </label>-->
             </div>
+
+            <div class=movie-get>
+                <div class="text-button-wrapper">
+                    <input type="text" v-model="movieQuarry" placeholder="Search Movie:">
+                    <button :disabled="movieQuarry == ''" @click="getMovie(movieQuarry)">Search</button>
+                </div>
+                <div v-show="listOfMovies.length != 0" class="movie-get-wrapper">
+                    <div v-for="movieName in listOfMovies">
+                        <label class="movie-get-label">{{ movieName }}</label>
+                    </div>
+                </div>
+            </div>
             <div class=movie-get-by-Name>
-                <div>
-                    <input type="text" v-model="movieNameGet" placeholder="Search By Name:">
-                    <button :disabled="movieNameGet == ''" @click="getMovieByName(movieNameGet)">get Movie</button>
+                <div class="text-button-wrapper">
+                    <input type="text" v-model="movieName" placeholder="Search By Name:">
+                    <button :disabled="movieName == ''" @click="getMovieByName(movieName)">Search</button>
                 </div>
                 <div v-show="listOfMoviesByName.length != 0" class="movie-get-wrapper">
                     <div v-for="movieName in listOfMoviesByName">

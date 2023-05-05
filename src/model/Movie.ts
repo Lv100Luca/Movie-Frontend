@@ -24,7 +24,8 @@ export default class Movie {
     }
 
     public toString() :string {
-        return this.name + " / " + this.id;
+        // return this.name + " / " + this.id;
+        return this.id + ": " + this.name;
     }
 
 }

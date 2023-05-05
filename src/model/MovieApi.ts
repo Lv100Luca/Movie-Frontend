@@ -68,52 +68,11 @@ export default class MovieApi {
     }
 
     public static async ApiDeleteById(id: number) {
-        console.log(id);
         const response = await fetch(this.url + "/id/" + id, {
             method: "delete",
             headers: {
                 "Content-Type": "application/json",
             }
         });
-        console.log("response: " + response.status)
-        if (response.ok) {
-            console.log("204 is okayge")
-        } else {
-            console.log("204 is not okayge")
-        }
     }
-
-    // async function sendEmail(dataURL: string) {
-    //     if (!emailIsValid(email.value) && email.value != "") {
-    //         return false;
-    //     } else {
-    //         if (email.value != "") {
-    //             emailList.push(email.value);
-    //         }
-    //         console.log("LOG: Started Post!")
-    //         console.log("LOG: " + emailList)
-    //         const response = await fetch(staticData.url + "/EmailApi/SendEmailWithData",
-    //             {
-    //                 method: "POST",
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                 },
-    //                 body: JSON.stringify({
-    //                     mails: emailList,
-    //                     username: username,
-    //                     acesTest: acesTest,
-    //                     imageData: dataURL,
-    //                     // completionDate: completionDate.getTime(),
-    //                 })
-    //             });
-    //         if (response.ok) {
-    //             showModal.value = true;
-    //         } else {
-    //             //todo -> show modal with error message
-    //         }
-    //
-    //         return true;
-
-    //     }
-    // }
 }

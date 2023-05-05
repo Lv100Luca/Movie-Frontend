@@ -100,12 +100,12 @@ function deleteMovieByName(id: number) {
                 </div>
             </div>
             <div class="movie-post">
-                <div class=movie-post-request>
+                <div class="text-button-wrapper">
                     <input @keydown.enter="addMovie(movieNamePost)" v-model="movieNamePost" placeholder="Name of Movie!"
                            type="text"
                            class="movie-post-text-input">
                     <button :disabled="(movieNamePost == '')" class="movie-post-button"
-                            @click="addMovie(movieNamePost)">add Movie
+                            @click="addMovie(movieNamePost)">Add
                     </button>
                 </div>
                 <!--                <label class="movie-post-response-code">-->
@@ -135,19 +135,20 @@ function deleteMovieByName(id: number) {
                     </div>
                 </div>
             </div>
+
             <div class="movie-get-by-id">
-                <div>
+                <div class="text-button-wrapper">
                     <input type="text" v-model="movieId" placeholder="Search By Id:">
-                    <button :disabled="movieId == undefined || movieId == ''" @click="getMovieById(movieId!)">get
-                        Movie
-                    </button>
+                    <button :disabled="movieId == undefined || movieId == ''" @click="getMovieById(movieId!)">Search</button>
                 </div>
                 <label>{{ movieById }}</label>
             </div>
             <div class=movie-get-by-Name>
-                <div style="display: flex;">
+                <div class="text-button-wrapper">
                     <input type="text" v-model="movieDelete" placeholder="Delete by Id:">
-                    <button :disabled="movieDelete == undefined || movieDelete == ''" @click="deleteMovieByName(movieDelete)">Delete!</button>
+                    <button :disabled="movieDelete == undefined || movieDelete == ''"
+                            @click="deleteMovieByName(movieDelete)">Delete
+                    </button>
                 </div>
             </div>
         </div>
@@ -155,6 +156,14 @@ function deleteMovieByName(id: number) {
     </div>
 </template>
 <style>
+.text-button-wrapper {
+    display: flex;
+    justify-content: flex-start;
+}
+
+button {
+    width: 100% ;
+}
 .home-wrapper {
     display: flex;
     flex-direction: column;

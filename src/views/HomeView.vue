@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import MovieApi from "@/model/MovieApi";
 import type Movie from "@/model/Movie";
 
@@ -18,6 +18,30 @@ const movieDelete = ref();
 
 onMounted(() => {
     getMovies();
+});
+
+watch(movieQuarry, () => {
+    if (movieQuarry.value == "") {
+        listOfMovies.value = [];
+        return;
+    }
+    getMovie(movieQuarry.value);
+});
+
+watch(movieName, () => {
+    if (movieName.value == "") {
+        listOfMoviesByName.value = [];
+        return;
+    }
+    getMovieByName(movieName.value);
+});
+
+watch(movieId, () => {
+   if (movieId.value == undefined) {
+       movieById.value = undefined; // todo remove when empty
+       return
+   }
+   getMovieById(movieId.value);
 });
 
 function getMovies() { //todo rename to updateMovies and run onMounted

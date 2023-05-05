@@ -4,6 +4,7 @@ import {onMounted, ref} from "vue";
 import MovieApi from "@/model/MovieApi";
 import type Movie from "@/model/Movie";
 
+const listOfAllMovies = ref<Movie[]>([]);
 const listOfMovies = ref<Movie[]>([]);
 const listOfMoviesByName = ref<Movie[]>([]);
 const movieNamePost = ref<string>("");
@@ -21,7 +22,7 @@ onMounted(() => {
 
 function getMovies() { //todo rename to updateMovies and run onMounted
     console.log("Getting");
-    MovieApi.ApiGet().then(response => listOfMovies.value = response);
+    MovieApi.ApiGet().then(response => listOfAllMovies.value = response);
 }
 
 function addMovie(name: string) {
@@ -69,7 +70,7 @@ function deleteMovieByName(id: number) {
             <div class="movie-get">
                 <button class="movie-get-button" @click="getMovies()">Get Movies</button>
                 <div class="movie-get-wrapper">
-                    <div v-for="movie in listOfMovies">
+                    <div v-for="movie in listOfAllMovies">
                         <label class="movie-get-label">{{ movie }}</label>
                     </div>
                 </div>
